@@ -1,4 +1,7 @@
-first_number, second_number, third_number, sum = 0, 0, 0, 0;
+first_number = 0
+second_number = 0 
+third_number = 0
+sum = 0
 
 numbers = {
     'first number': first_number,
