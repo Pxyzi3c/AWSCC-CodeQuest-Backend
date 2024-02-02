@@ -2,7 +2,7 @@ from difflib import get_close_matches
 
 options = {
     "scissor": {
-        "wins to": "scissor",
+        "wins to": "paper",
         "losses to": "rock",
     },
     "rock": {
