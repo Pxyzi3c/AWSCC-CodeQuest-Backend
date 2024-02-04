@@ -79,7 +79,6 @@ def evaluate(user_input):
         quit_program()
 
 def start():
-    print([(i, action) for i, action in enumerate(["Add item to the shopping list", "View shopping list", "Remove item from the shopping list", "Quit"], start=1)]);
     print("OPTIONS:")
 
     for action in ACTIONS:
