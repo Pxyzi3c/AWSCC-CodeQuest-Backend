@@ -52,6 +52,7 @@ def add_item(item):
         print(f"{item} is already on the list.")
 
 def view():
+    print("Your shopping list:")
     for item in list:
         print(item)
 
@@ -78,6 +79,7 @@ def evaluate(user_input):
         quit_program()
 
 def start():
+    print([(i, action) for i, action in enumerate(["Add item to the shopping list", "View shopping list", "Remove item from the shopping list", "Quit"], start=1)]);
     print("OPTIONS:")
 
     for action in ACTIONS:
