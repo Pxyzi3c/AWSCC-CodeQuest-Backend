@@ -19,13 +19,13 @@ def validate_input(input_type, user_input):
     if input_type == "selected_option":
         try:
             user_input = int(user_input)
-            if user_input not in ACTIONS.keys():
-                print("Selected option is not on the list! Please try again.")
-                return None
-            return user_input
+            ACTIONS[user_input]
+            return user_input;
         except ValueError:
             print("Invalid value!")
             return None
+        except KeyError:
+            print("Selected option is not on the list!")
     elif input_type == "boolean_option":
         if isinstance(user_input, bool):
             return user_input
