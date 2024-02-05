@@ -16,17 +16,15 @@ def to_bool(answer):
         return answer.lower()
 
 def validate_input(input_type, user_input):
-    valid_options = ACTIONS.keys()
-
     if input_type == "selected_option":
         try:
             user_input = int(user_input)
-            if user_input not in valid_options:
+            if user_input not in ACTIONS.keys():
                 print("Selected option is not on the list! Please try again.")
                 return None
             return user_input
         except ValueError:
-            print("Invalid input! Please enter a valid integer.")
+            print("Invalid value!")
             return None
     elif input_type == "boolean_option":
         if isinstance(user_input, bool):
@@ -80,7 +78,8 @@ def start():
     print("OPTIONS:")
 
     for key, value in ACTIONS.items():
-        print(f"{key}. {value}")
+        instruction, label = value
+        print(f"{key}. {instruction}")
 
     while True:
         selected_option = validate_input("selected_option", input("Enter the number of your choice: "))
