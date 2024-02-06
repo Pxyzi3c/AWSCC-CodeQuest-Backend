@@ -1,5 +1,5 @@
 class Student:
-    def __init__(self, name, age, is_enrolled, classes, offenses):
+    def __init__(self, name: str, age: int, is_enrolled: bool, classes: list, offenses: list):
         self.name = name
         self.age = age
         self.is_enrolled = is_enrolled

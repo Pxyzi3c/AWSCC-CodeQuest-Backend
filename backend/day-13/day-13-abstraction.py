@@ -10,13 +10,17 @@ class Calculator:
 def start():
     numbers = []
     while True:
-        user_input = input("Enter a number [press Enter to exit]: ")
-        if user_input:
-            numbers.append(int(user_input))
-        else:
-            calculate_sum = Calculator().sum(numbers)
-            print(f"Here's the numbers inputted: {numbers}")
-            print(f"Sum: {calculate_sum}")
+        try:
+            user_input = input("Enter a number [press Enter to exit]: ")
+            if user_input:
+                numbers.append(int(user_input))
+            else:
+                calculate_sum = Calculator().sum(numbers)
+                print(f"Here's the numbers inputted: {numbers}")
+                print(f"Sum: {calculate_sum}")
+                break
+        except KeyboardInterrupt:
+            print("\nCancelled!")
             break
 
 start()
