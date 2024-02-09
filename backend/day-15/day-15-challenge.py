@@ -10,7 +10,7 @@ class PasswordManager:
         with open(path, 'r') as file:
             return json.load(file)
     
-    def __storeData(self, path: str, data: object):
+    def __updateData(self, path: str, data: object):
         with open(path, 'w') as file:
             json.dump(data, file, indent=4)
 
@@ -28,7 +28,7 @@ class PasswordManager:
                 data[website_key] = []
             data[website_key].append(new_data)
 
-            self.__storeData('backend/day-15/data.json', data)
+            self.__updateData('backend/day-15/data.json', data)
         except:
             print("An error occured!")
         else: 
@@ -47,7 +47,26 @@ class PasswordManager:
             print("An error occured while fetching the data!")
 
     def deleteData(self):
-        print("Delete data function")
+        try:
+            data = self.__loadData('backend/day-15/data.json')
+            
+            data_to_delete = {
+                'email': self.email,
+                'password': self.password
+            }
+
+            website_key = self.getWebsiteKey()
+            data[website_key].remove(data_to_delete)
+
+            self.__updateData('backend/day-15/data.json', data)
+        except KeyError:
+            print("Website key not found on the record! Please check your inputs and try again")
+        except ValueError:
+            print("Password is not found on the record! Please check your inputs and try again")
+        except:
+            print("An error occured!")
+        else:
+            print("Password deleted successfully!")
 
     def updateData(self):
         print("Update data function")
@@ -112,9 +131,13 @@ def start():
             elif selected_option == "SEARCH":
                 password_manager.getData()
             elif selected_option == "DELETE":
-                password_manager.deleteData()
+                website = input("Website name: ")
+                email = input("Email: ")
+                password = input("Password: ")
+                PasswordManager(website, email, password).deleteData()
             elif selected_option == "UPDATE":
                 password_manager.updateData()
+
             generateDivider()
             another_process = input("Do you want to perform another operation? [y/n] ").lower()
 
