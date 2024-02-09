@@ -49,24 +49,18 @@ class PasswordManager:
     def deleteData(self):
         try:
             data = self.__loadData('backend/day-15/data.json')
-            
-            data_to_delete = {
-                'email': self.email,
-                'password': self.password
-            }
-
             website_key = self.getWebsiteKey()
-            data[website_key].remove(data_to_delete)
-
-            self.__updateData('backend/day-15/data.json', data)
-        except KeyError:
-            print("Website key not found on the record! Please check your inputs and try again")
-        except ValueError:
-            print("Password is not found on the record! Please check your inputs and try again")
-        except:
-            print("An error occured!")
-        else:
-            print("Password deleted successfully!")
+            for account in data.get(website_key, []):
+                if account.get('email') == self.email and account.get('password') == self.password:
+                    data[website_key].remove(account)
+                    self.__updateData('backend/day-15/data.json', data)
+                    print("Password deleted successfully!")
+                    return
+            print("Email and password combination not found in the record! Please check your inputs and try again")
+        except FileNotFoundError:
+            print("File not found! Please check the file path")
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
     def updateData(self):
         print("Update data function")
