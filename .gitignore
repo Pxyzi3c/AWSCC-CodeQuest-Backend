@@ -1,2 +1,4 @@
 .venv
 __pycache__
+# Ignore student_records.txt
+backend/day-14/student_records.txt
