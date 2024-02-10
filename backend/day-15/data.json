@@ -13,6 +13,10 @@
         {
             "email": "harvyfb@yahoo.com",
             "password": "naruto123"
+        },
+        {
+            "email": "samplefb@yahoo.com",
+            "password": "bleach123"
         }
     ]
 }

@@ -35,17 +35,35 @@ class PasswordManager:
         except Exception as e:
             print(f"An error occured: {e}")
 
-    def getData(self):
+    def getData(self, filter_key = None):
         try: 
             data = self.__loadData('backend/day-15/data.json')
-            
-            for website, account in data.items():
-                print(f"Website: {self.getWebsiteName(website)}")
-                for details in account:
-                    print(f"\tEmail: {details['email']}")
-                    print(f"\tPassword: {details['password']}")
-        except:
-            print("An error occured while fetching the data!")
+            filtered_items = {}
+            if filter_key:
+                if filter_key in data:
+                    filtered_items = {filter_key: data[filter_key]}
+                else:
+                    for website_key, accounts in data.items():
+                        filtered_accounts= [
+                            account for account in accounts if filter_key in account.values()
+                        ]
+                        if filtered_accounts:
+                            filtered_items[website_key] = filtered_accounts
+                if filtered_items:
+                    self.displayData(filtered_items)
+                else:
+                    print("Keyword is not found on our record!")
+            else:
+                self.displayData(data)
+        except Exception as e:
+            print(f"An error occured: {e}")
+    
+    def displayData(self, data: object):
+        for website, account in data.items():
+            print(f"Website: {self.getWebsiteName(website)}")
+            for details in account:
+                print(f"\tEmail: {details['email']}")
+                print(f"\tPassword: {details['password']}")
 
     def deleteData(self):
         try:
@@ -96,6 +114,12 @@ def generateDivider():
         counter += 1
     print()
 
+def getUserInput():
+    website = input("Website name: ")
+    email = input("Email: ")
+    password = input("Password: ")
+    return PasswordManager(website, email, password)
+
 def start():
     options = (
         (1, "Add a password"),
@@ -117,19 +141,14 @@ def start():
 
             generateDivider();
             if selected_option == "ADD":
-                website = input("Website name: ")
-                email = input("Email: ")
-                password = input("Password: ")
-                PasswordManager(website, email, password).addData()
+                getUserInput().addData()
             elif selected_option == "VIEW":
                 password_manager.getData()
             elif selected_option == "SEARCH":
-                password_manager.getData()
+                keyword = input("Enter a keyword [website/email/password]: ")
+                password_manager.getData(keyword)
             elif selected_option == "DELETE":
-                website = input("Website name: ")
-                email = input("Email: ")
-                password = input("Password: ")
-                PasswordManager(website, email, password).deleteData()
+                getUserInput().deleteData()
             elif selected_option == "UPDATE":
                 password_manager.updateData()
 
