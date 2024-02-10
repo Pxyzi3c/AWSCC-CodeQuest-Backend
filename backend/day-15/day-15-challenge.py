@@ -1,4 +1,5 @@
 import json
+import validate
 
 class PasswordManager:
     def __init__(self, website: str, email: str, password: str):
@@ -82,7 +83,23 @@ class PasswordManager:
             print(f"An error occurred: {e}")
 
     def updateData(self):
-        print("Update data function")
+        try:
+            data = self.__loadData('backend/day-15/data.json')
+            website_key = self.getWebsiteKey()
+            for account in data.get(website_key, []):
+                if account.get('email') == self.email and account.get('password') == self.password:
+                    print(f"\nUpdate data for website: {self.website} | "
+                            f"email: {self.email} | "
+                            f"password: {self.password}"
+                    )
+                    account['email'] = input("New email: ")
+                    account['password'] = input("New password: ")
+                    self.__updateData('backend/day-15/data.json', data)
+                    print("Password updated successfully!")
+                    return
+            print("Email and password combination not found in the record! Please check your inputs and try again")
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
     def getWebsiteName(self, code: str):
         try:
@@ -131,7 +148,7 @@ def start():
     
     while True:
         password_manager = PasswordManager("", "", "")
-
+    
         print("OPTIONS")
         for process_number, process_description in options:
             print(f"  {process_number} - {process_description}")
@@ -150,7 +167,7 @@ def start():
             elif selected_option == "DELETE":
                 getUserInput().deleteData()
             elif selected_option == "UPDATE":
-                password_manager.updateData()
+                getUserInput().updateData()
 
             generateDivider()
             another_process = input("Do you want to perform another operation? [y/n] ").lower()
