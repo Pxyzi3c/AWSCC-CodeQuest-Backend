@@ -24,15 +24,16 @@ class PasswordManager:
             }
 
             website_key = self.getWebsiteKey()
-            if website_key not in data:
-                data[website_key] = []
-            data[website_key].append(new_data)
+            if website_key in data and new_data in data[website_key]:
+                print(f"Password already exists for website: {self.getWebsiteName(website_key)}")
+                return
+            else:
+                data.setdefault(website_key, []).append(new_data)
 
             self.__updateData('backend/day-15/data.json', data)
-        except:
-            print("An error occured!")
-        else: 
             print("Password added successfully!")
+        except Exception as e:
+            print(f"An error occured: {e}")
 
     def getData(self):
         try: 
