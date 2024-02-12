@@ -2,16 +2,16 @@ from difflib import get_close_matches
 
 options = {
     "scissor": {
-        "wins to": "paper",
-        "losses to": "rock",
+        "wins_to": "paper",
+        "losses_to": "rock",
     },
     "rock": {
-        "wins to": "scissor",
-        "losses to": "paper"
+        "wins_to": "scissor",
+        "losses_to": "paper"
     },
     "paper": {
-        "wins to": "rock",
-        "losses to": "scissor"
+        "wins_to": "rock",
+        "losses_to": "scissor"
     }
 }
 
@@ -26,9 +26,9 @@ def validate_input(player_input):
         exit()
 
 def evaluate(p1, p2):
-    if options[p1]["wins to"] == p2:
+    if options[p1]["wins_to"] == p2:
         print("Player 1 wins!")
-    elif options[p1]["losses to"] == p2:
+    elif options[p1]["losses_to"] == p2:
         print("Player 2 wins!")
     elif p1 == p2:
         print("It's a draw!")
