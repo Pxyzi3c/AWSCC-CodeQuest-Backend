@@ -1,3 +1,5 @@
+import input_types
+
 shopping_list = []
 
 ACTIONS = {
@@ -16,7 +18,7 @@ def to_bool(answer):
         return answer.lower()
 
 def validate_input(input_type, user_input):
-    if input_type == "selected_option":
+    if input_type == input_types.SELECTED_OPTION:
         try:
             user_input = int(user_input)
             ACTIONS[user_input]
@@ -26,16 +28,16 @@ def validate_input(input_type, user_input):
             return None
         except KeyError:
             print("Selected option is not on the list!")
-    elif input_type == "boolean_option":
+    elif input_type == input_types.BOOLEAN_OPTION:
         if isinstance(user_input, bool):
             return user_input
         else:
             return print("Answer must be 'y' or 'n'!")
-    elif input_type == "remove_item" or input_type == "add_item":
+    elif input_type == input_types.REMOVE_ITEM or input_type == input_types.ADD_ITEM:
         return user_input in shopping_list
         
 def add_item(item):
-    validated_input = validate_input("add_item", item)
+    validated_input = validate_input(input_types.ADD_ITEM, item)
     if not validated_input:
         shopping_list.append(item)
         print(f"{item} has been added to your shopping list.")
@@ -48,7 +50,7 @@ def view():
         print(item)
 
 def remove_item(item):
-    validated_input = validate_input("remove_item", item)
+    validated_input = validate_input(input_types.REMOVE_ITEM, item)
     if validated_input:
         shopping_list.remove(item)
         print(f"{item} has been removed to your shopping list.")
@@ -82,11 +84,11 @@ def start():
         print(f"{key}. {instruction}")
 
     while True:
-        selected_option = validate_input("selected_option", input("Enter the number of your choice: "))
+        selected_option = validate_input(input_types.SELECTED_OPTION, input("Enter the number of your choice: "))
 
         evaluate(selected_option)
         
-        if not validate_input("boolean_option", to_bool(input("Continue [y/n]? "))):
+        if not validate_input(input_types.BOOLEAN_OPTION, to_bool(input("Continue [y/n]? "))):
             break
 
 start()
