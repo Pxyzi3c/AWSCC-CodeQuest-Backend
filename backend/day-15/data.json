@@ -1,12 +1,22 @@
 {
     "yt": [
         {
-            "email": "clarence",
-            "password": "432432432"
+            "email": "clarence@yahoo.com",
+            "password": "432432432v2"
         },
         {
             "email": "xian",
             "password": "sadsadsadsadsa343432432"
+        }
+    ],
+    "fb": [
+        {
+            "email": "harvyfb@yahoo.com",
+            "password": "naruto123"
+        },
+        {
+            "email": "samplefb@yahoo.com",
+            "password": "bleach123"
         }
     ]
 }
